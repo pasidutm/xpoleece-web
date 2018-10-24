@@ -21,19 +21,19 @@ namespace Xpoli.Service.Controllers
 
         // GET: api/Member
         [HttpGet]
-        public ActionResult<List<Member>> Get()
+        public List<Member> Get()
         {
             return _context.Members.ToList();
         }
 
         // GET: api/Member/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<Member> Get(int id)
+        public Member Get(int id)
         {
             var item = _context.Members.Find(id);
             if (item == null)
             {
-                return NotFound();
+                return null;
             }
             return item;
         }
