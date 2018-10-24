@@ -8,7 +8,7 @@ namespace Listing.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ListingsController : Controller
+    public class ListingsController : ControllerBase
     {
         private readonly XpoliDbContext _context;
 
