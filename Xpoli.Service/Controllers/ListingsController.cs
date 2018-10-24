@@ -46,16 +46,16 @@ namespace Listing.Service.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, ListingDetail item)
         {
-            var todo = _context.Listings.Find(id);
-            if (todo == null)
+            var listing = _context.Listings.Find(id);
+            if (listing == null)
             {
                 return NotFound();
             }
 
-            todo.Description = item.Description;
-            todo.Name = item.Name;
+            listing.Description = item.Description;
+            listing.Name = item.Name;
 
-            _context.Listings.Update(todo);
+            _context.Listings.Update(listing);
             _context.SaveChanges();
             return NoContent();
         }
@@ -63,13 +63,13 @@ namespace Listing.Service.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var todo = _context.Listings.Find(id);
-            if (todo == null)
+            var listing = _context.Listings.Find(id);
+            if (listing == null)
             {
                 return NotFound();
             }
 
-            _context.Listings.Remove(todo);
+            _context.Listings.Remove(listing);
             _context.SaveChanges();
             return NoContent();
         }
