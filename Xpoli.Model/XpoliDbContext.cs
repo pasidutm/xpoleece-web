@@ -18,6 +18,10 @@ namespace Listing.Model
 
         public DbSet<Member> Members { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
 
         private void LoadData() {
             this.Listings.Add(new ListingDetail { Name = "Amazing Views", CategoryId=100, Description="House with views", Id=1, MemberId=1 });

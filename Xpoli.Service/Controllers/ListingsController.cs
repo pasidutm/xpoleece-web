@@ -14,7 +14,7 @@ namespace Listing.Service.Controllers
 
         public ListingsController(XpoliDbContext context)
         {
-            _context = context;            
+            _context = context;
         }
 
         [HttpGet]
