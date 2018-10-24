@@ -18,60 +18,54 @@ namespace Listing.Service.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ListingDetail>> GetAll()
+        public List<ListingDetail> GetAll()
         {
             return _context.Listings.ToList();
         }
 
         [HttpGet("{id}", Name = "GetListing")] //Named Routes
-        public ActionResult<ListingDetail> GetById(int id)
+        public ListingDetail GetById(int id)
         {
-            var item = _context.Listings.Find(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+            var item = _context.Listings.Find(id);            
             return item;
         }
 
         [HttpPost]
-        public IActionResult Create(ListingDetail item)
+        public int Create(ListingDetail item)
         {
             _context.Listings.Add(item);
-            _context.SaveChanges();
-
-            return CreatedAtRoute("GetListing", new { id = item.Id }, item);
+            return _context.SaveChanges();         
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, ListingDetail item)
+        public int Update(int id, ListingDetail item)
         {
-            var todo = _context.Listings.Find(id);
-            if (todo == null)
+            var listingDetail = _context.Listings.Find(id);
+            if (listingDetail == null)
             {
-                return NotFound();
+                return -1;
             }
 
-            todo.Description = item.Description;
-            todo.Name = item.Name;
+            listingDetail.Description = item.Description;
+            listingDetail.Name = item.Name;
 
-            _context.Listings.Update(todo);
-            _context.SaveChanges();
-            return NoContent();
+            _context.Listings.Update(listingDetail);
+            return _context.SaveChanges();
+           
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public int Delete(int id)
         {
-            var todo = _context.Listings.Find(id);
-            if (todo == null)
+            var listingDetail = _context.Listings.Find(id);
+            if (listingDetail == null)
             {
-                return NotFound();
+                return -1;
             }
 
-            _context.Listings.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+            _context.Listings.Remove(listingDetail);
+            return _context.SaveChanges();
+            
         }
     }
 }
