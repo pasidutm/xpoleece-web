@@ -28,6 +28,7 @@ namespace ListingService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<XpoliDbContext>(opt => opt.UseInMemoryDatabase("ListingList"), ServiceLifetime.Singleton);
+            services.AddResponseCaching();
             services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = true; // false by default
@@ -50,6 +51,7 @@ namespace ListingService
                 app.UseHsts();
             }
 
+            app.UseResponseCaching();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
