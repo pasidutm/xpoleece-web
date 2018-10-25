@@ -32,7 +32,7 @@ namespace Listing.Service.Controllers
                 return NotFound();
             }
             return item;
-        }
+        }               
 
         [HttpPost]
         public IActionResult Create(ListingDetail item)
