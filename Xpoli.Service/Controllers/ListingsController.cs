@@ -16,56 +16,34 @@ namespace Listing.Service.Controllers
         {
             _context = context;            
         }
-
-        [HttpGet]
+               
         public List<ListingDetail> GetAll()
         {
-            return _context.Listings.ToList();
+            return null; //write code here
         }
 
-        [HttpGet("{id}", Name = "GetListing")] //Named Routes
+       
         public ListingDetail GetById(int id)
         {
-            var item = _context.Listings.Find(id);            
-            return item;
+            return null; //write code here
         }
 
         [HttpPost]
         public int Create(ListingDetail item)
         {
-            _context.Listings.Add(item);
-            return _context.SaveChanges();         
+            return 1; //write code here   
         }
 
         [HttpPut("{id}")]
         public int Update(int id, ListingDetail item)
         {
-            var listingDetail = _context.Listings.Find(id);
-            if (listingDetail == null)
-            {
-                return -1;
-            }
-
-            listingDetail.Description = item.Description;
-            listingDetail.Name = item.Name;
-
-            _context.Listings.Update(listingDetail);
-            return _context.SaveChanges();
-           
+            return 1; //write code here       
         }
 
         [HttpDelete("{id}")]
         public int Delete(int id)
         {
-            var listingDetail = _context.Listings.Find(id);
-            if (listingDetail == null)
-            {
-                return -1;
-            }
-
-            _context.Listings.Remove(listingDetail);
-            return _context.SaveChanges();
-            
+            return 1; //write code here      
         }
     }
 }
