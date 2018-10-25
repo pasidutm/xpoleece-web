@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Listing.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,27 @@ namespace ListingService
                 app.UseHsts();
             }
 
+            app.Use(async (context, next) =>
+            {
+                await next();
+            });
             app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            {
+                // For GetTypedHeaders, add: using Microsoft.AspNetCore.Http;
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(20)
+
+                    };               
+
+                await next();
+            });
+
+           
             app.UseHttpsRedirection();
             app.UseMvc();
         }
