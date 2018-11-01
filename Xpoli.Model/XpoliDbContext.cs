@@ -47,7 +47,8 @@ namespace Listing.Model
             this.Status.Add(new StatusDetails { Id = 400, Status = "Bad Request", Description = "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications." });
             this.Status.Add(new StatusDetails { Id = 401, Status = "Unauthorized", Description = "The request requires user authentication. The response MUST include a WWW-Authenticate header field" });
             this.Status.Add(new StatusDetails { Id = 404, Status = "Not Found", Description = "The server has not found anything matching the Request-URI. " });
-           // this.Status.Add(new StatusDetails { Id = 200, Status = "OK", Description = "Standard response for successful HTTP requests" });
+           //
+            this.Status.Add(new StatusDetails { Id = 200, Status = "OK", Description = "Standard response for successful HTTP requests" });
 
             this.SaveChanges();
         }

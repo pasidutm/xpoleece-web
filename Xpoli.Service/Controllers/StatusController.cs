@@ -41,9 +41,7 @@ namespace Listing.Service.Controllers
         [Route("process")]
         public ActionResult ProcessLongRunningTask()
         {
-            var url = Url.Link("GetById", 89522);
-            Task.Delay(10000);
-            return Accepted();
+            
         }
 
 
