@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,12 +38,13 @@ namespace ListingService
             })
             .AddXmlSerializerFormatters()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         //The Configure method is used to specify how the app responds to HTTP requests.
         //The request pipeline is configured by adding middleware components to an IApplicationBuilder instance.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -49,11 +52,18 @@ namespace ListingService
             }
             else
             {
+                app.UseExceptionHandler();
                 app.UseHsts();
             }
 
             app.Use(async (context, next) =>
             {
+                logger.LogInformation("Request Incoming");
+                if (context.Request.Path.StartsWithSegments("/ll"))
+                {
+                    await context.Response.WriteAsync("damm");
+
+                }
                 await next();
             });
             app.UseResponseCaching();
@@ -65,16 +75,30 @@ namespace ListingService
                     new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
                     {
                         Public = true,
-                        MaxAge = TimeSpan.FromSeconds(20)
+                        MaxAge = TimeSpan.FromSeconds(30)
 
-                    };               
+                    };
 
                 await next();
             });
 
-           
+            app.Use(async (context, next) =>
+            {
+
+
+                await next();
+            }
+
+            );
+
+            app.UseWelcomePage(new WelcomePageOptions
+            {
+                Path = "/api/welcome"
+            });
             app.UseHttpsRedirection();
+
             app.UseMvc();
+
         }
     }
 }

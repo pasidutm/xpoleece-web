@@ -1,8 +1,10 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Listing.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Listing.Service.Controllers
 {
@@ -18,9 +20,9 @@ namespace Listing.Service.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ListingDetail>> GetAll()
+        public async Task<ActionResult<List<ListingDetail>>> GetAll()
         {
-            return _context.Listings.ToList();
+            return await _context.Listings.ToListAsync();
         }
 
         [HttpGet("{id}", Name = "GetListing")] //Named Routes

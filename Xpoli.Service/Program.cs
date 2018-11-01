@@ -21,7 +21,10 @@ namespace ListingService
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>(); //Can specify the start up logic 
+            //asp.net will instantiate this class and invoke 2 methods.
+            //1. Configure service, which can register services, that can be injected to other components 
+            //2. Configure methods, calls onces, you can configure the middle ware
         }
     }
 }
