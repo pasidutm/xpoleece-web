@@ -20,12 +20,12 @@ namespace Listing.Service.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ListingDetail>>> GetAll()
+         public ActionResult<List<ListingDetail>> GetAll()
         {
-            return await _context.Listings.ToListAsync();
+            return  _context.Listings.ToList();
         }
-
-        [HttpGet("{id}", Name = "GetListing")] //Named Routes
+        
+        [HttpGet("{id}", Name = "GetListing")] //Named Routes        
         public ActionResult<ListingDetail> GetById(int id)
         {
             var item = _context.Listings.Find(id);
@@ -33,11 +33,11 @@ namespace Listing.Service.Controllers
             {
                 return NotFound();
             }
-            return item;
+            return Ok(item);
         }               
 
         [HttpPost]
-        public IActionResult Create(ListingDetail item)
+        public ActionResult Create(ListingDetail item)
         {
             _context.Listings.Add(item);
             _context.SaveChanges();
@@ -46,7 +46,7 @@ namespace Listing.Service.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, ListingDetail item)
+        public ActionResult Update(int id, ListingDetail item)
         {
             var listing = _context.Listings.Find(id);
             if (listing == null)
@@ -63,7 +63,7 @@ namespace Listing.Service.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             var listing = _context.Listings.Find(id);
             if (listing == null)
