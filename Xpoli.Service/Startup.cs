@@ -55,46 +55,7 @@ namespace ListingService
                 app.UseExceptionHandler();
                 app.UseHsts();
             }
-
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("Request Incoming");
-                if (context.Request.Path.StartsWithSegments("/ll"))
-                {
-                    await context.Response.WriteAsync("damm");
-
-                }
-                await next();
-            });
-            app.UseResponseCaching();
-
-            app.Use(async (context, next) =>
-            {
-                // For GetTypedHeaders, add: using Microsoft.AspNetCore.Http;
-                context.Response.GetTypedHeaders().CacheControl =
-                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
-                    {
-                        Public = true,
-                        MaxAge = TimeSpan.FromSeconds(30)
-
-                    };
-
-                await next();
-            });
-
-            app.Use(async (context, next) =>
-            {
-
-
-                await next();
-            }
-
-            );
-
-            app.UseWelcomePage(new WelcomePageOptions
-            {
-                Path = "/api/welcome"
-            });
+          
             app.UseHttpsRedirection();
 
             app.UseMvc();
